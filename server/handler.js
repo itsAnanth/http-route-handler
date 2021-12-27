@@ -1,11 +1,11 @@
-const fs = require('fs');
+import fs from 'fs';
 const routeFolder = fs.readdirSync('./server/routes');
 
 
-function handleHTTPRoutes(req, res) {
+async function handleHTTPRoutes(req, res) {
     let exists;
     for (const routes of routeFolder) {
-        const routeMeta = require(`./routes/${routes}`);
+        const routeMeta = (await import(`./routes/${routes}`)).default;
         const { route, callback } = routeMeta;
         if (req.url == route) {
             callback(req, res);
@@ -16,4 +16,4 @@ function handleHTTPRoutes(req, res) {
     if (!exists) res.end('invalid route');
 }
 
-module.exports = handleHTTPRoutes;
+export default handleHTTPRoutes;

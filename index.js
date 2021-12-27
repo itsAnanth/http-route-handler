@@ -1,6 +1,6 @@
+import handleHTTPRequests from './server/handler.js';
+import http from 'http';
 const PORT = process.env.PORT || 3000;
-const handleHTTPRequests = require('./server/handler.js');
-const http = require('http');
 const httpServer = http.createServer();
 
 httpServer.on('request', handleHTTPRequests);
